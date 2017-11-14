@@ -57,7 +57,7 @@
 	查看页面访问排名前十的URL
 	cat /var/log/apache2/access.log  | cut -f4 -d " " | sort | uniq -c | sort -k 1 -r | head -10　　
 	
-　	.查询前100000条明显是程序的IP
+　	查询前100000条明显是程序的IP
 	cat acccess.log head-100000 |awk-F'" "''$10 ~ /java|feedly|universalfeedparser|apachebench|microsoft url control|python-urllib|httpclient/ {print $2}'|uniq
 	
 	查询访问量超过5000的IP
