@@ -57,7 +57,21 @@
 	查看页面访问排名前十的URL
 	cat /var/log/apache2/access.log  | cut -f4 -d " " | sort | uniq -c | sort -k 1 -r | head -10　　
 	
-　
+　	.查询前100000条明显是程序的IP
+	cat acccess.log head-100000 |awk-F'" "''$10 ~ /java|feedly|universalfeedparser|apachebench|microsoft url control|python-urllib|httpclient/ {print $2}'|uniq
+	
+	查询访问量超过5000的IP
+	cat access.log head-100000 |awk-F'" "''{print $2}'|sort|uniq-c |sort-nr |awk'$1>=5000 {print $2}'
+	
+	取某一段时间的日志 。
+	awk -F'[ -:]' '$4 >= 5 && $4 <= 9{print;nextline=NR+1}$1$2$3 !~ /\d+/ && NR == nextline' www_jk_cn.txt >access.log
+	
+	按照时间统计日志情况。
+	awk -F":" '{count[$2]++} END{for(i=0; i<24; i++){if(i<10){bb=0""i;}else{bb=i;} print bb"\t"count[bb]}}' access.log 
+	
+	获得访问前10位的ip地址 
+	cat access.log|awk '{print $1}'|sort|uniq -c|sort -nr|head -10 cat access.log|awk 
+	
 
 再推荐一篇安全应急排查手册：[https://yq.aliyun.com/articles/177337](https://yq.aliyun.com/articles/177337) 
 
